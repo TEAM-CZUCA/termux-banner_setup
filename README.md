@@ -29,7 +29,7 @@ An advanced, highly customizable, and automated Termux banner setup script creat
 ## 🛠️ Installation
 
 Run the following commands in your Termux terminal one by one:
-
+```
 
 # Update and upgrade Termux packages
 pkg update && pkg upgrade -y
@@ -56,7 +56,7 @@ Choose a Font ID (e.g., 1 for Standard, 14 for Doom).
 View the Live Preview.
 Type y to confirm and activate the dashboard.
 Termux will automatically restart, and your new dashboard will be ready!
-```
+
 🔄 How to Update
 If you want to update the tool to the latest version in the future, simply run the script and type u when it asks for SELECT ID/OPTION. The tool will automatically update itself!
 📞 Contact & Support
