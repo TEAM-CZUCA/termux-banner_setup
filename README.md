@@ -30,14 +30,12 @@ An advanced, highly customizable, and automated Termux banner setup script creat
 
 Run the following commands in your Termux terminal one by one:
 
-```bash
 pkg update && pkg upgrade -y
 pkg install python git -y
 git clone https://github.com/TEAM-CZUCA/termux-banner_setup.git
 cd termux-banner_setup
 python setup.py
 
----
 #🚀 How to Use
 #Open Termux and run the script.
 The script will establish a connection and briefly redirect you to our official Facebook App/Page. Please follow/like us!
