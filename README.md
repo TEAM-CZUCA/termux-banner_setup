@@ -1,9 +1,9 @@
 # 💀 TEAM-CZUCA Termux Banner Dashboard 💀
 
-![Version](https://img.shields.io/badge/Version-11.4-blue.svg)
+![Version](https://img.shields.io/badge/Version-1.0-blue.svg)
 ![Platform](https://img.shields.io/badge/Platform-Termux-green.svg)
 ![Language](https://img.shields.io/badge/Language-Python-yellow.svg)
-![Author](https://img.shields.io/badge/Author-LEVIATHAN_DRIFT_419-red.svg)
+![Author](https://img.shields.io/badge/DEVELOPER-LEVIATHAN_DRIFT_419-red.svg)
 
 An advanced, highly customizable, and automated Termux banner setup script created by **TEAM CZUCA**. This tool transforms your boring Termux terminal into a professional hacker dashboard displaying real-time system information, dynamic greetings, and stylish ASCII text art.
 
