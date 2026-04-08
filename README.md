@@ -29,14 +29,14 @@ An advanced, highly customizable, and automated Termux banner setup script creat
 ## 🛠️ Installation
 
 Run the following commands in your Termux terminal one by one:
-
+```
 pkg update && pkg upgrade -y
 pkg install python git -y
 git clone https://github.com/TEAM-CZUCA/termux-banner_setup.git
 cd termux-banner_setup
 python setup.py
-
-#🚀 How to Use
+```
+##🚀 How to Use
 #Open Termux and run the script.
 The script will establish a connection and briefly redirect you to our official Facebook App/Page. Please follow/like us!
 After the 5-second timer, the setup will resume.
@@ -45,7 +45,7 @@ Choose a Font ID (e.g., 1 for Standard, 14 for Doom).
 View the Live Preview.
 Type y to confirm and activate the dashboard.
 Termux will automatically restart, and your new dashboard will be ready!
-#🔄 How to Update
+##🔄 How to Update
 If you want to update the tool to the latest version in the future, simply run the script and type u when it asks for SELECT ID/OPTION. The tool will automatically update itself!
 #📞 Contact & Support
 Facebook Page: Cyber Zulfiqar UnderCover Agency
