@@ -11,39 +11,30 @@ An advanced, highly customizable, and automated Termux banner setup script creat
 
 ## ✨ Features
 
-- **50+ Premium Fonts:** Choose from a wide variety of `figlet` fonts.
-- **Live Preview Mode:** See how your name looks in a specific font before applying it.
-- **Dynamic Dashboard:** Displays real-time Data:
-  - 🌐 Local IP Address
-  - ⚡ RAM Usage (Percentage)
-  - 💾 Storage Usage
-  - 🕒 Current Time
-  - 🌞 Dynamic Greetings (Good Morning/Afternoon/Evening)
-- **Auto Dependency Installer:** Automatically installs required packages (`git`, `figlet`, `lolcat`, `curl`).
-- **One-Click Update:** Built-in auto-updater to fetch the latest version from GitHub.
-- **App Redirect:** Automatically redirects users to the official TEAM CZUCA Facebook App/Page upon launch.
-- **Bug-Free Bashrc:** Generates a highly optimized, error-free `.bashrc` profile.
+*   **50+ Premium Fonts:** Choose from a wide variety of `figlet` fonts.
+*   **Live Preview Mode:** See how your name looks in a specific font before applying it.
+*   **Dynamic Dashboard:** Displays real-time Data:
+    *   🌐 Local IP Address
+    *   ⚡ RAM Usage (Percentage)
+    *   💾 Storage Usage
+    *   🕒 Current Time
+    *   🌞 Dynamic Greetings (Good Morning/Afternoon/Evening)
+*   **Auto Dependency Installer:** Automatically installs required packages (`git`, `figlet`, `lolcat`, `curl`).
+*   **One-Click Update:** Built-in auto-updater to fetch the latest version from GitHub.
+*   **App Redirect:** Automatically redirects users to the official TEAM CZUCA Facebook App/Page upon launch.
+*   **Bug-Free Bashrc:** Generates a highly optimized, error-free `.bashrc` profile.
 
 ---
 
 ## 🛠️ Installation
 
 Run the following commands in your Termux terminal one by one:
-```
 
-# Update and upgrade Termux packages
+```bash
 pkg update && pkg upgrade -y
-
-# Install required packages (Python & Git)
 pkg install python git -y
-
-# Clone the repository
 git clone https://github.com/TEAM-CZUCA/termux-banner_setup.git
-
-# Go to the tool directory
 cd termux-banner_setup
-
-# Run the setup script
 python setup.py
 
 ```
@@ -56,14 +47,12 @@ Choose a Font ID (e.g., 1 for Standard, 14 for Doom).
 View the Live Preview.
 Type y to confirm and activate the dashboard.
 Termux will automatically restart, and your new dashboard will be ready!
-
 🔄 How to Update
 If you want to update the tool to the latest version in the future, simply run the script and type u when it asks for SELECT ID/OPTION. The tool will automatically update itself!
 📞 Contact & Support
-Facebook Page:Cyber Zulfiqar UnderCover Agency
+Facebook Page: Cyber Zulfiqar UnderCover Agency
 Author/Owner: LEVIATHAN DRIFT 419
 Team: TEAM CZUCA
-```
 ⚠️ Disclaimer
 This tool is made for customization and educational purposes only. Modifying terminal profiles comes with responsibilities. The author is not responsible for any misuse or broken terminal environments (though the code is highly optimized to prevent errors).
 Made with ❤️ by LEVIATHAN DRIFT 419
