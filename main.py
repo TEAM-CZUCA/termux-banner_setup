@@ -6,14 +6,13 @@ import platform
 import signal
 import random
 
-# Tool: TEAM-CZUCA-Dashboard-Ultimate (Password Section Fixed)
-# Author: LEVIATHAN DRIFT 419
-# Version: 11.0 (Login System Patch)
-# Repo: https://github.com/Tigermate-u/LEVIATHAN_BANNER.git
+# Tool: TEAM-CZUCA-Dashboard-Ultimate (Fixed)
+# Author: LEVIATHAN DRIFT 419 (Refactored)
+# Version: 11.1 (Syntax & Security Patch)
 
 # --- CONFIGURATION ---
-GITHUB_REPO_URL = "https://github.com/Tigermate-u/LEVIATHAN_BANNER.git"
-TOOL_DIR_NAME = "LEVIATHAN_BANNER"
+GITHUB_REPO_URL = "https://github.com/TEAM-CZUCA/termux-banner_setup.git"
+TOOL_DIR_NAME = "TEAM-CZUCA_BANNER"
 
 # --- COLORS ---
 R = '\033[1;31m'  # Red
@@ -178,7 +177,7 @@ def print_uca_header():
     print(logo)
     div_line = f"{BK}=========================================================================={RESET}"
     print(div_line)
-    head_txt = f"{Y}[ TEAM CZUCA TERMINAL ]            {R}OWNER: LEVIATHAN DRIFT 419   {G}STATUS: ONLINE{RESET}"
+    head_txt = f"{Y}[ TEAM CZUCA TERMINAL ]            {R}DEVELOPER: LEVIATHAN DRIFT 419   {G}STATUS: ONLINE{RESET}"
     type_print(head_txt, 0.01)
     print(div_line)
 
@@ -203,7 +202,7 @@ font_db =[
     ("Roman", "roman"), ("Rounded", "rounded")
 ]
 
-# --- PREVIEW FUNCTION (FIXED) ---
+# --- PREVIEW FUNCTION ---
 def show_preview(name, font_file, font_name):
     clear()
     cols = get_cols()
@@ -249,9 +248,11 @@ def show_preview(name, font_file, font_name):
                 except Exception:
                     pass
 
-        # Robust execution with fallback ensuring PREVIEW always shows
-        f_cmd = f"figlet -f '{font_file}' -w {cols} -c '{name}' 2>/dev/null"
-        f_std = f"figlet -f standard -w {cols} -c '{name}' 2>/dev/null"
+        # Escape single quotes for bash execution in preview
+        safe_name = name.replace("'", "'\\''")
+        
+        f_cmd = f"figlet -f '{font_file}' -w {cols} -c '{safe_name}' 2>/dev/null"
+        f_std = f"figlet -f standard -w {cols} -c '{safe_name}' 2>/dev/null"
 
         if shutil.which("lolcat"):
             os.system(f"{f_cmd} | lolcat || {f_std} | lolcat")
@@ -271,7 +272,7 @@ def main():
     print(f"\n {C}┌──[ {P}IDENTITY {C}]")
 
     try:
-        msg = f" {C}└─➤ {Y}ENTER NAME (Default: TEAM-CZUCA) :: {W}"
+        msg = f" {C}└─➤ {Y}ENTER YOUR NAME  :: {W}"
         name = type_input(msg, 0.03).strip()
     except Exception:
         name = "TEAM-CZUCA"
@@ -336,9 +337,11 @@ def main():
     # --- FIXED PASSWORD LOGIC ---
     pass_script = ""
     if user_pass:
+        # Sanitize password slightly for bash insertion
+        safe_pass = user_pass.replace("'", "'\\''")
         pass_script = f"""
 # Secure Password Logic
-TARGET_PASS='{user_pass}'
+TARGET_PASS='{safe_pass}'
 RECOVERY_KEY='{recovery_code}'
 
 while true; do
@@ -347,11 +350,12 @@ while true; do
     read -s input_pass
     echo "" # Newline after silent input
 
-    if[ "$input_pass" == "$TARGET_PASS" ]; then
+    # CRITICAL FIX: Added spaces inside [ ] brackets
+    if [ "$input_pass" == "$TARGET_PASS" ]; then
         echo -e "\\033[1;32m [✔] ACCESS GRANTED.\\033[0m"
         sleep 0.5
         break
-    elif[ "$input_pass" == "$RECOVERY_KEY" ]; then
+    elif [ "$input_pass" == "$RECOVERY_KEY" ]; then
         echo -e "\\033[1;35m [!] RECOVERY CODE ACCEPTED.\\033[0m"
         sleep 0.5
         break
@@ -363,6 +367,9 @@ while true; do
     fi
 done
 """
+
+    # Sanitize username to prevent Bash Command Injection
+    safe_name = name.replace("'", "'\\''")
 
     # --- BASHRC GENERATION ---
     bashrc_content = f"""
@@ -421,7 +428,7 @@ TXT_R2="[🕒] TM : $TIME_VAL "
 LEN_L2=${{#TXT_L2}}
 LEN_R2=${{#TXT_R2}}
 GAP2=$((COLS - 2 - LEN_L2 - LEN_R2))
-if[ $GAP2 -lt 0 ]; then GAP2=0; fi
+if [ $GAP2 -lt 0 ]; then GAP2=0; fi
 
 printf "$C║"
 printf "$P%s" "$TXT_L2"
@@ -435,15 +442,12 @@ echo ""
 # BOX 2: ASCII NAME + FOOTER
 printf "$C╔"; for ((i=1; i<=COLS-2; i++)); do printf "═"; done; printf "╗\\n"
 
-# ASCII ART (Error Free Logic)
+# ASCII ART (Secured Logic without eval)
 echo -e "$C"
-CMD1="figlet -f '{sel_file}' -w $COLS -c '{name}' 2>/dev/null"
-CMD2="figlet -f standard -w $COLS -c '{name}' 2>/dev/null"
-
 if command -v lolcat > /dev/null 2>&1; then
-    eval "$CMD1" | lolcat || eval "$CMD2" | lolcat
+    figlet -f '{sel_file}' -w $COLS -c '{safe_name}' 2>/dev/null | lolcat || figlet -f standard -w $COLS -c '{safe_name}' 2>/dev/null | lolcat
 else
-    eval "$CMD1" || eval "$CMD2"
+    figlet -f '{sel_file}' -w $COLS -c '{safe_name}' 2>/dev/null || figlet -f standard -w $COLS -c '{safe_name}' 2>/dev/null
 fi
 echo -e "$RESET"
 
