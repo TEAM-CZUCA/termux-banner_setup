@@ -5,14 +5,16 @@ import shutil
 import platform
 import signal
 import random
+import webbrowser # নতুন যোগ করা হয়েছে ব্রাউজার ওপেন করার জন্য
 
-# Tool: TEAM-CZUCA-Dashboard-Ultimate (Fixed)
+# Tool: TEAM-CZUCA-Dashboard-Ultimate (Fixed + Redirect Feature)
 # Author: LEVIATHAN DRIFT 419 (Refactored)
-# Version: 11.1 (Syntax & Security Patch)
+# Version: 11.2 (Added Page Redirect & Timer)
 
 # --- CONFIGURATION ---
 GITHUB_REPO_URL = "https://github.com/TEAM-CZUCA/termux-banner_setup.git"
 TOOL_DIR_NAME = "TEAM-CZUCA_BANNER"
+FB_PAGE_URL = "https://www.facebook.com/CyberZulfiqarUnderCoverAgency"
 
 # --- COLORS ---
 R = '\033[1;31m'  # Red
@@ -59,6 +61,32 @@ def type_input(text, speed=0.015):
         sys.stdout.flush()
         time.sleep(speed)
     return input()
+
+# --- 🔗 REDIRECT TO FACEBOOK PAGE (NEW FUNCTION) 🔗 ---
+def show_connection_and_redirect():
+    clear()
+    type_print(f"\n{C}[*] ESTABLISHING CONNECTION TO SERVER...{RESET}", 0.03)
+    time.sleep(0.5)
+    
+    print(f"\n{Y}[!] Follow Our Official Facebook Page...{RESET}")
+    # 5 Second Timer
+    for i in range(5, 0, -1):
+        sys.stdout.write(f"\r{R}[+] Opening link in {i} seconds...{RESET} ")
+        sys.stdout.flush()
+        time.sleep(1)
+    print("\n")
+    
+    # Open Browser
+    try:
+        webbrowser.open(FB_PAGE_URL)
+        if system_os != "Windows":
+            # Fallback for Termux just in case webbrowser module fails
+            os.system(f"termux-open '{FB_PAGE_URL}' > /dev/null 2>&1")
+    except Exception:
+        pass
+    
+    type_print(f"{G}[✔] Connection Successful! Resuming Tool...{RESET}", 0.03)
+    time.sleep(1.5)
 
 # --- 🔧 DEPENDENCY FIXER 🔧 ---
 def check_dependencies():
@@ -160,7 +188,7 @@ def install_loaders():
             time.sleep(0.08)
         sys.stdout.write(f"\r {C}[PROCESS] {step:<35} {G}[DONE] \n")
         time.sleep(0.1)
-    type_print(f"\n{BK} [LOG] SYSTEM REBOOT REQUIRED...{RESET}", 0.05)
+    type_print(f"\n{BK}[LOG] SYSTEM REBOOT REQUIRED...{RESET}", 0.05)
     time.sleep(1)
     clear()
 
@@ -177,7 +205,7 @@ def print_uca_header():
     print(logo)
     div_line = f"{BK}=========================================================================={RESET}"
     print(div_line)
-    head_txt = f"{Y}[ TEAM CZUCA TERMINAL ]     {R}DEVELOPER: LEVIATHAN DRIFT 419   {G}STATUS: ONLINE{RESET}"
+    head_txt = f"{Y}[ TEAM CZUCA TERMINAL ]     {R}OWNER: LEVIATHAN DRIFT 419   {G}STATUS: ONLINE{RESET}"
     type_print(head_txt, 0.01)
     print(div_line)
 
@@ -266,13 +294,14 @@ def show_preview(name, font_file, font_name):
 
 # --- MAIN ---
 def main():
+    show_connection_and_redirect() # <--- এখানে নতুন ফাংশনটি কল করা হয়েছে
     check_dependencies()
     intro_animation()
     print_uca_header()
     print(f"\n {C}┌──[ {P}IDENTITY {C}]")
 
     try:
-        msg = f" {C}└─➤ {Y}ENTER YOUR NAME  :: {W}"
+        msg = f" {C}└─➤ {Y}ENTER YOUR NAME :: {W}"
         name = type_input(msg, 0.03).strip()
     except Exception:
         name = "TEAM-CZUCA"
@@ -350,9 +379,8 @@ while true; do
     read -s input_pass
     echo "" # Newline after silent input
 
-    # CRITICAL FIX: Added spaces inside [ ] brackets
-    if [ "$input_pass" == "$TARGET_PASS" ]; then
-        echo -e "\\033[1;32m [✔] ACCESS GRANTED.\\033[0m"
+    if[ "$input_pass" == "$TARGET_PASS" ]; then
+        echo -e "\\033[1;32m[✔] ACCESS GRANTED.\\033[0m"
         sleep 0.5
         break
     elif [ "$input_pass" == "$RECOVERY_KEY" ]; then
@@ -384,9 +412,9 @@ G="\\033[1;32m"; P="\\033[1;35m"; BK="\\033[1;30m"; RESET="\\033[0m"
 COLS=$(tput cols)
 
 H=$(date +%H)
-if [ $H -lt 12 ]; then
+if[ $H -lt 12 ]; then
     GR="GOOD MORNING"
-elif [ $H -lt 18 ]; then
+elif[ $H -lt 18 ]; then
     GR="GOOD AFTERNOON"
 else
     GR="GOOD EVENING"
@@ -395,7 +423,7 @@ fi
 # --- 1. DATA COLLECTION ---
 IP_CMD=$(ifconfig 2>/dev/null | grep -Eo 'inet (addr:)?([0-9]*\\.){{3}}[0-9]*')
 IP_RAW=$(echo "$IP_CMD" | grep -v '127.0.0.1' | head -n 1 | awk '{{print $2}}')
-if [ -z "$IP_RAW" ]; then IP_RAW="OFFLINE"; fi
+if[ -z "$IP_RAW" ]; then IP_RAW="OFFLINE"; fi
 
 RAM_VAL=$(free -m | awk 'NR==2{{printf "%.2f%%", $3*100/$2}}')
 DISK_VAL=$(df /data | tail -1 | awk '{{print $5}}')
@@ -411,7 +439,7 @@ TXT_R="[⚡] RAM: $RAM_VAL  [💾] STG: $DISK_VAL "
 LEN_L=${{#TXT_L}}
 LEN_R=${{#TXT_R}}
 GAP=$((COLS - 2 - LEN_L - LEN_R))
-if [ $GAP -lt 0 ]; then GAP=0; fi
+if[ $GAP -lt 0 ]; then GAP=0; fi
 
 printf "$C║"
 printf "$Y%s" "$TXT_L"
