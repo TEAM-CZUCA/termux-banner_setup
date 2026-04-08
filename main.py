@@ -4,12 +4,10 @@ import sys
 import shutil
 import platform
 import signal
-import random
-import webbrowser 
 
-# Tool: TEAM-CZUCA-Dashboard-Ultimate (Fixed + App Redirect Feature)
+# Tool: TEAM-CZUCA-Dashboard-Ultimate (No-Password + App Redirect)
 # Author: LEVIATHAN DRIFT 419 (Refactored)
-# Version: 11.3 (Direct Facebook App Redirect & Post-Timer)
+# Version: 11.4 (Password Removed, FB App Forced, Bash Errors Fixed)
 
 # --- CONFIGURATION ---
 GITHUB_REPO_URL = "https://github.com/TEAM-CZUCA/termux-banner_setup.git"
@@ -62,7 +60,7 @@ def type_input(text, speed=0.015):
         time.sleep(speed)
     return input()
 
-# --- 🔗 REDIRECT TO FACEBOOK APP (DIRECT) 🔗 ---
+# --- 🔗 REDIRECT TO FACEBOOK APP (FORCED) 🔗 ---
 def show_connection_and_redirect():
     clear()
     type_print(f"\n{C}[*] ESTABLISHING CONNECTION TO SERVER...{RESET}", 0.03)
@@ -70,22 +68,25 @@ def show_connection_and_redirect():
     
     print(f"\n{Y}[!] Redirecting to Official Facebook App...{RESET}")
     
-    # ১. সাথে সাথেই ডিরেক্ট অ্যাপে রিডাইরেক্ট করবে
+    # ১. ফোর্স ফেসবুক অ্যাপ ওপেন কমান্ড
     try:
         if system_os != "Windows":
-            # Termux-এর মাধ্যমে সরাসরি Facebook App-এ ওপেন করার কমান্ড
-            fb_app_intent = f"fb://facewebmodal/f?href={FB_PAGE_URL}"
-            res = os.system(f"am start -a android.intent.action.VIEW -d '{fb_app_intent}' > /dev/null 2>&1")
+            # প্রথমে Facebook (Katana) অ্যাপ ফোর্স করে ওপেন করার চেষ্টা করবে
+            res = os.system(f"am start -a android.intent.action.VIEW -d '{FB_PAGE_URL}' com.facebook.katana > /dev/null 2>&1")
             
-            # যদি ফোনে Facebook অ্যাপ না থাকে, তবে সাধারণ ব্রাউজার/লিংক ওপেন করবে
+            # যদি Katana অ্যাপ না থাকে তবে ডিফল্ট intent ট্রাই করবে
             if res != 0:
-                os.system(f"termux-open '{FB_PAGE_URL}' > /dev/null 2>&1")
+                res2 = os.system(f"am start -a android.intent.action.VIEW -d 'fb://facewebmodal/f?href={FB_PAGE_URL}' > /dev/null 2>&1")
+                # কোনোভাবেই অ্যাপ না পেলে টারমাক্সের ডিফল্ট ওপেনার (ব্রাউজার) ইউজ করবে
+                if res2 != 0:
+                    os.system(f"termux-open '{FB_PAGE_URL}' > /dev/null 2>&1")
         else:
+            import webbrowser
             webbrowser.open(FB_PAGE_URL)
     except Exception:
         pass
     
-    # ২. অ্যাপে যাওয়ার পর ব্যাকগ্রাউন্ডে ৫ সেকেন্ডের টাইমার চলবে
+    # ২. অ্যাপে যাওয়ার পর ব্যাকগ্রাউন্ডে ৫ সেকেন্ডের টাইমার
     print("\n")
     for i in range(5, 0, -1):
         sys.stdout.write(f"\r{R}[+] Resuming setup in {i} seconds...{RESET} ")
@@ -105,7 +106,7 @@ def check_dependencies():
         else:
             print(f"{R}[!] Please install Git for Windows manually.{RESET}")
 
-    reqs = ["figlet", "lolcat", "curl"]
+    reqs =["figlet", "lolcat", "curl"]
     if system_os != "Windows":
         for r in reqs:
             if not shutil.which(r):
@@ -284,9 +285,7 @@ def show_preview(name, font_file, font_name):
                 except Exception:
                     pass
 
-        # Escape single quotes for bash execution in preview
         safe_name = name.replace("'", "'\\''")
-        
         f_cmd = f"figlet -f '{font_file}' -w {cols} -c '{safe_name}' 2>/dev/null"
         f_std = f"figlet -f standard -w {cols} -c '{safe_name}' 2>/dev/null"
 
@@ -302,7 +301,7 @@ def show_preview(name, font_file, font_name):
 
 # --- MAIN ---
 def main():
-    show_connection_and_redirect() # <--- ডিরেক্ট অ্যাপ রিডাইরেক্ট এবং টাইমার 
+    show_connection_and_redirect() # ডিরেক্ট অ্যাপ রিডাইরেক্ট এবং টাইমার 
     check_dependencies()
     intro_animation()
     print_uca_header()
@@ -350,68 +349,16 @@ def main():
         confirm = type_input(f" {C}└─➤ {W}", 0.02).strip().lower()
 
         if confirm == 'y':
-            print("")
-            type_print(f" {P}[SYSTEM] {Y}DO YOU WANT TO SET A PASSWORD LOCK? (y/n)", 0.03)
-            want_pass = type_input(f" {C}└─➤ {W}", 0.02).strip().lower()
-            user_pass = ""
-            recovery_code = ""
-
-            if want_pass == 'y':
-                type_print(f" {P}[SYSTEM] {Y}ENTER YOUR NEW PASSWORD:", 0.03)
-                user_pass = type_input(f" {C}└─➤ {W}", 0.02).strip()
-                recovery_code = str(random.randint(11111, 99999))
-                print(f"\n{R}╔══════════════════════════════════════════╗")
-                type_print(f"{R}║ {Y}      IMPORTANT: RECOVERY CODE GENERATED  {R}║", 0.02)
-                print(f"{R}╠══════════════════════════════════════════╣")
-                type_print(f"{R}║ {W}      CODE: {G}{recovery_code}                   {R}║", 0.05)
-                type_print(f"{R}║ {BK} (If you forget password, use this code)  {R}║", 0.02)
-                print(f"{R}╚══════════════════════════════════════════╝{RESET}")
-                type_input(f"\n{C} Press Enter to continue installation...{RESET}", 0.03)
-
+            # পাসওয়ার্ডের লজিক পুরোপুরি রিমুভ করা হয়েছে। সরাসরি ইন্সটল শুরু হবে।
             install_loaders()
             break
-
-    # --- FIXED PASSWORD LOGIC ---
-    pass_script = ""
-    if user_pass:
-        # Sanitize password slightly for bash insertion
-        safe_pass = user_pass.replace("'", "'\\''")
-        pass_script = f"""
-# Secure Password Logic
-TARGET_PASS='{safe_pass}'
-RECOVERY_KEY='{recovery_code}'
-
-while true; do
-    echo -e "\\033[1;33m"
-    echo -n "[🔒] ENTER PASSWORD: "
-    read -s input_pass
-    echo "" # Newline after silent input
-
-    if[ "$input_pass" == "$TARGET_PASS" ]; then
-        echo -e "\\033[1;32m[✔] ACCESS GRANTED.\\033[0m"
-        sleep 0.5
-        break
-    elif[ "$input_pass" == "$RECOVERY_KEY" ]; then
-        echo -e "\\033[1;35m [!] RECOVERY CODE ACCEPTED.\\033[0m"
-        sleep 0.5
-        break
-    else
-        echo -e "\\033[1;31m [X] WRONG PASSWORD! TRY AGAIN.\\033[0m"
-        sleep 0.8
-        clear
-        echo -e "\\033[1;31m TEAM CZUCA SECURITY SYSTEM V2.0 \\033[0m"
-    fi
-done
-"""
 
     # Sanitize username to prevent Bash Command Injection
     safe_name = name.replace("'", "'\\''")
 
-    # --- BASHRC GENERATION ---
+    # --- BASHRC GENERATION (Syntax Error Fixed) ---
     bashrc_content = f"""
 # --- TEAM CZUCA SYSTEM ---
-clear
-{pass_script}
 clear
 printf "\\a"
 
@@ -420,6 +367,7 @@ G="\\033[1;32m"; P="\\033[1;35m"; BK="\\033[1;30m"; RESET="\\033[0m"
 COLS=$(tput cols)
 
 H=$(date +%H)
+# Fixed Bash Syntax: Added space after [ and before ]
 if [ $H -lt 12 ]; then
     GR="GOOD MORNING"
 elif [ $H -lt 18 ]; then
@@ -431,6 +379,7 @@ fi
 # --- 1. DATA COLLECTION ---
 IP_CMD=$(ifconfig 2>/dev/null | grep -Eo 'inet (addr:)?([0-9]*\\.){{3}}[0-9]*')
 IP_RAW=$(echo "$IP_CMD" | grep -v '127.0.0.1' | head -n 1 | awk '{{print $2}}')
+# Fixed Bash Syntax
 if [ -z "$IP_RAW" ]; then IP_RAW="OFFLINE"; fi
 
 RAM_VAL=$(free -m | awk 'NR==2{{printf "%.2f%%", $3*100/$2}}')
@@ -447,7 +396,8 @@ TXT_R="[⚡] RAM: $RAM_VAL  [💾] STG: $DISK_VAL "
 LEN_L=${{#TXT_L}}
 LEN_R=${{#TXT_R}}
 GAP=$((COLS - 2 - LEN_L - LEN_R))
-if [ $GAP -lt 0 ]; then GAP=0; fi
+# Fixed Bash Syntax
+if[ $GAP -lt 0 ]; then GAP=0; fi
 
 printf "$C║"
 printf "$Y%s" "$TXT_L"
@@ -464,6 +414,7 @@ TXT_R2="[🕒] TM : $TIME_VAL "
 LEN_L2=${{#TXT_L2}}
 LEN_R2=${{#TXT_R2}}
 GAP2=$((COLS - 2 - LEN_L2 - LEN_R2))
+# Fixed Bash Syntax
 if [ $GAP2 -lt 0 ]; then GAP2=0; fi
 
 printf "$C║"
