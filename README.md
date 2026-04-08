@@ -37,20 +37,11 @@ cd termux-banner_setup
 python setup.py
 ```
 ##🚀 How to Use
-#Open Termux and run the script.
-The script will establish a connection and briefly redirect you to our official Facebook App/Page. Please follow/like us!
-After the 5-second timer, the setup will resume.
-Enter your Name (or press Enter for default).
-Choose a Font ID (e.g., 1 for Standard, 14 for Doom).
-View the Live Preview.
-Type y to confirm and activate the dashboard.
-Termux will automatically restart, and your new dashboard will be ready!
+To use this tool, simply open Termux and run the script. It will establish a connection and briefly redirect you to our official Facebook App or Page. Please follow or like us! After a 5-second timer, the setup will resume automatically. You will be prompted to enter your name (or press Enter for the default name). Next, choose a Font ID from the list to view a live preview. Finally, type 'y' to confirm and activate the dashboard. Termux will automatically restart, and your new dashboard will be ready.
 ##🔄 How to Update
-If you want to update the tool to the latest version in the future, simply run the script and type u when it asks for SELECT ID/OPTION. The tool will automatically update itself!
-#📞 Contact & Support
-Facebook Page: Cyber Zulfiqar UnderCover Agency
-Author/Owner: LEVIATHAN DRIFT 419
-Team: TEAM CZUCA
+If you want to update the tool to the latest version in the future, simply run the script and type 'u' when it asks for SELECT ID/OPTION. The tool will automatically update itself from GitHub!
+##📞 Contact & Support
+For any support or queries, you can reach out to the Author and Owner, LEVIATHAN DRIFT 419, representing TEAM CZUCA. You can also visit our official Facebook Page: Cyber Zulfiqar UnderCover Agency.
 ```
 ⚠️ Disclaimer
 This tool is made for customization and educational purposes only. Modifying terminal profiles comes with responsibilities. The author is not responsible for any misuse or broken terminal environments (though the code is highly optimized to prevent errors).
