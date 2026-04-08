@@ -177,7 +177,7 @@ def print_uca_header():
     print(logo)
     div_line = f"{BK}=========================================================================={RESET}"
     print(div_line)
-    head_txt = f"{Y}[ TEAM CZUCA TERMINAL ]      {R}DEVELOPER: {G}LEVIATHAN{B} DRIFT 419   {G}STATUS: ONLINE{RESET}"
+    head_txt = f"{Y}[ TEAM CZUCA TERMINAL ]      {R}DEVELOPER: {G}LEVIATHAN DRIFT 419   {G}STATUS: ONLINE{RESET}"
     type_print(head_txt, 0.01)
     print(div_line)
 
