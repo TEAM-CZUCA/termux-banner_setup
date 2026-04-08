@@ -37,9 +37,9 @@ git clone https://github.com/TEAM-CZUCA/termux-banner_setup.git
 cd termux-banner_setup
 python setup.py
 
-```
+---
 #🚀 How to Use
-Open Termux and run the script.
+#Open Termux and run the script.
 The script will establish a connection and briefly redirect you to our official Facebook App/Page. Please follow/like us!
 After the 5-second timer, the setup will resume.
 Enter your Name (or press Enter for default).
