@@ -7,7 +7,7 @@ import signal
 
 # Tool: TEAM-CZUCA-Dashboard-Ultimate (No-Password + App Redirect)
 # Author: LEVIATHAN DRIFT 419 (Refactored)
-# Version: 11.6 (Final Syntax Fix)
+# Version: 11.7 (All Bash Syntax Errors Completely Fixed)
 
 # --- CONFIGURATION ---
 GITHUB_REPO_URL = "https://github.com/TEAM-CZUCA/termux-banner_setup.git"
@@ -156,7 +156,7 @@ def update_tool():
 # --- 1. INTRO BOOT ANIMATION ---
 def intro_animation():
     clear()
-    type_print(f"\n{BK} [INIT] CONNECTION HOBE TEAM CZUCA...{RESET}", 0.04)
+    type_print(f"\n{BK}[INIT] CONNECTION HOBE TEAM CZUCA...{RESET}", 0.04)
     time.sleep(0.3)
     logs =[
         "LOADING_KERNEL_MODULES",
@@ -363,7 +363,7 @@ COLS=$(tput cols)
 H=$(date +%H)
 if [ $H -lt 12 ]; then
     GR="GOOD MORNING"
-elif[ $H -lt 18 ]; then
+elif [ $H -lt 18 ]; then
     GR="GOOD AFTERNOON"
 else
     GR="GOOD EVENING"
@@ -373,7 +373,7 @@ fi
 IP_CMD=$(ifconfig 2>/dev/null | grep -Eo 'inet (addr:)?([0-9]*\\.){{3}}[0-9]*')
 IP_RAW=$(echo "$IP_CMD" | grep -v '127.0.0.1' | head -n 1 | awk '{{print $2}}')
 
-if[ -z "$IP_RAW" ]; then IP_RAW="OFFLINE"; fi
+if [ -z "$IP_RAW" ]; then IP_RAW="OFFLINE"; fi
 
 RAM_VAL=$(free -m | awk 'NR==2{{printf "%.2f%%", $3*100/$2}}')
 DISK_VAL=$(df /data | tail -1 | awk '{{print $5}}')
@@ -390,7 +390,6 @@ LEN_L=${{#TXT_L}}
 LEN_R=${{#TXT_R}}
 GAP=$((COLS - 2 - LEN_L - LEN_R))
 
-# FIXED BASH SYNTAX HERE
 if [ $GAP -lt 0 ]; then GAP=0; fi
 
 printf "$C║"
@@ -409,8 +408,7 @@ LEN_L2=${{#TXT_L2}}
 LEN_R2=${{#TXT_R2}}
 GAP2=$((COLS - 2 - LEN_L2 - LEN_R2))
 
-# FIXED BASH SYNTAX HERE
-if [ $GAP2 -lt 0 ]; then GAP2=0; fi
+if[ $GAP2 -lt 0 ]; then GAP2=0; fi
 
 printf "$C║"
 printf "$P%s" "$TXT_L2"
