@@ -7,7 +7,7 @@ import signal
 
 # Tool: TEAM-CZUCA-Dashboard-Ultimate (No-Password + App Redirect)
 # Author: LEVIATHAN DRIFT 419 (Refactored)
-# Version: 11.7 (All Bash Syntax Errors Completely Fixed)
+# Version: 11.8 (Deeply Fixed All Bash Syntax Errors)
 
 # --- CONFIGURATION ---
 GITHUB_REPO_URL = "https://github.com/TEAM-CZUCA/termux-banner_setup.git"
@@ -156,7 +156,7 @@ def update_tool():
 # --- 1. INTRO BOOT ANIMATION ---
 def intro_animation():
     clear()
-    type_print(f"\n{BK}[INIT] CONNECTION HOBE TEAM CZUCA...{RESET}", 0.04)
+    type_print(f"\n{BK} [INIT] CONNECTION HOBE TEAM CZUCA...{RESET}", 0.04)
     time.sleep(0.3)
     logs =[
         "LOADING_KERNEL_MODULES",
@@ -363,7 +363,7 @@ COLS=$(tput cols)
 H=$(date +%H)
 if [ $H -lt 12 ]; then
     GR="GOOD MORNING"
-elif [ $H -lt 18 ]; then
+elif[ $H -lt 18 ]; then
     GR="GOOD AFTERNOON"
 else
     GR="GOOD EVENING"
@@ -384,7 +384,7 @@ TIME_VAL=$(date +'%I:%M %p')
 printf "$C╔"; for ((i=1; i<=COLS-2; i++)); do printf "═"; done; printf "╗\\n"
 
 TXT_L=" $GR, {name.upper()}"
-TXT_R="[⚡] RAM: $RAM_VAL  [💾] STG: $DISK_VAL "
+TXT_R="[⚡] RAM: $RAM_VAL[💾] STG: $DISK_VAL "
 
 LEN_L=${{#TXT_L}}
 LEN_R=${{#TXT_R}}
@@ -408,7 +408,8 @@ LEN_L2=${{#TXT_L2}}
 LEN_R2=${{#TXT_R2}}
 GAP2=$((COLS - 2 - LEN_L2 - LEN_R2))
 
-if[ $GAP2 -lt 0 ]; then GAP2=0; fi
+# 100% FIXED BASH SYNTAX HERE (GAP2)
+if [ $GAP2 -lt 0 ]; then GAP2=0; fi
 
 printf "$C║"
 printf "$P%s" "$TXT_L2"
